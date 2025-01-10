@@ -9,7 +9,9 @@
   },
   "scripts": {
     "wdio": "wdio run ./wdio.conf.js",
-    "matchJobs": "node src/ai/jobMatcher.js"
+    "matchJobs": "node src/ai/jobMatcher.js",
+    "sendMail": "node src/mail/mail.js",
+    "start": "npm run wdio && npm run matchJobs && npm run sendMail"
   },
   "dependencies": {
     "@huggingface/inference": "^2.8.1",
