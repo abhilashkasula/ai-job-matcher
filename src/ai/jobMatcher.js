@@ -1,5 +1,8 @@
 import fs from 'fs'
 import { HfInference } from "@huggingface/inference"
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const client = new HfInference(process.env.HUGGINGFACE_TOKEN)
 const jobs = fs.readdirSync('data/jobs')
@@ -40,7 +43,4 @@ const proms = jobs.map(async (job) => {
 });
 
 const results = await Promise.all(proms);
-
-const html = fs.readFileSync('src/html/template.html').toString();
-
-fs.writeFileSync('src/html/template.html', html.replace('______DATA______', JSON.stringify(results)));
+fs.writeFileSync('data/results.json', JSON.stringify(results));

@@ -8,11 +8,14 @@
     "@wdio/spec-reporter": "^8.26.2"
   },
   "scripts": {
-    "wdio": "wdio run ./wdio.conf.js"
+    "wdio": "wdio run ./wdio.conf.js",
+    "matchJobs": "node src/ai/jobMatcher.js"
   },
   "dependencies": {
     "@huggingface/inference": "^2.8.1",
     "@langchain/community": "^0.3.23",
-    "@langchain/core": "^0.3.27"
+    "@langchain/core": "^0.3.27",
+    "dotenv": "^16.4.7",
+    "nodemailer": "^6.9.16"
   }
 }

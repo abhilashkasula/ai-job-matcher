@@ -1,6 +1,9 @@
 import fs, { existsSync } from 'fs';
 import jobsPage from "../pageobjects/jobs.page.js";
 import loginPage from "../pageobjects/login.page.js";
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 describe('Linkedin', () => {
   it('Search jobs', async () => {
