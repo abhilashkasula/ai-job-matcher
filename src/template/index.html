@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Matches</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: #4CAF50;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+        }
+        .job-section {
+            margin: 20px;
+        }
+        .job-section h2 {
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+        }
+        .job-card {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .job-card:last-child {
+            border-bottom: none;
+        }
+        .job-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        .info {
+            margin: 5px 0;
+        }
+        .skills {
+            margin-top: 10px;
+        }
+        .skills span {
+            display: inline-block;
+            background: #e0e0e0;
+            color: #333;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .comment {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+        }
+        .unmatch-comment {
+            border-left: 4px solid #FF5733;
+        }
+    </style>
+    <script>
+        const data = JSON.parse(`______DATA______`);
+
+        const renderMatchingJobs = (jobs) => {
+            const section = document.querySelector('#matching-jobs');
+            jobs.forEach(job => {
+                const card = `
+                  <div class="job-card">
+                    <div class="job-title">
+                        <a href="${job.url}" target="_blank">
+                            ${job.title}
+                        </a>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 50%;">
+                            <div class="info">Company: ${job.company}</div>
+                            <div class="info">Experience Required: ${job.experienceRequired}</div>
+                            <div class="info">Tech: ${job.tech}</div>
+                            <div class="info">Type: ${job.type}</div>
+                        </div>
+                        <div>
+                            <div class="info">Part-Time: ${job.isPartTime}</div>
+                            <div class="info">Posted On: ${job.postedOn}</div>
+                            <div class="info">Reposted: ${job.isReposted}</div>
+                            <div class="info">Apply Click Count: ${job.applyClickCount}</div>
+                        </div>
+                    </div>
+                    <div class="skills">
+                        <strong>Skills Matching:</strong>
+                        ${(job.skillsMatching || job.skillsmatching).reduce((html, skill) => html + `<span>${skill}</span>`, '')}
+                    </div>
+                    <div class="comment">
+                        ${job.comment}
+                </div>
+            </div>  
+                `;
+                section.innerHTML += card;
+            });
+        };
+        
+        const renderUnMatchingJobs = (jobs) => {
+            const section = document.querySelector('#unmatching-jobs');
+            jobs.forEach(job => {
+                const card = `
+                  <div class="job-card">
+                    <div class="job-title">${job.title}</div>
+                    <div class="info">Company: ${job.company}</div>
+                    <div class="info">Experience Required: ${job.experienceRequired}</div>
+                    <div class="comment unmatch-comment">
+                        ${job.comment}
+                    </div>
+                </div>  
+                `;
+                section.innerHTML += card;
+            })
+        };
+
+        window.onload = () => {
+            console.log(data)
+            const matching = data.filter(job => job.isAMatch);
+            const unmatching = data.filter(job => !job.isAMatch);
+            renderMatchingJobs(matching)
+            renderUnMatchingJobs(unmatching)
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Job Matches</h1>
+        </div>
+
+        <!-- Matching Jobs Section -->
+        <div class="job-section" id="matching-jobs">
+            <h2>Matching Jobs</h2>
+        </div>
+
+        <!-- Unmatching Jobs Section -->
+        <div class="job-section" id="unmatching-jobs">
+            <h2>Unmatching Jobs</h2>
+        </div>
+    </div>
+</body>
+</html>
