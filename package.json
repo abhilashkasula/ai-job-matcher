@@ -10,10 +10,11 @@
   "scripts": {
     "wdio": "wdio run ./wdio.conf.js",
     "matchJobs": "node src/ai/jobMatcher.js",
-    "sendMail": "node src/mail/mail.js",
-    "start": "npm run wdio && npm run matchJobs && npm run sendMail"
+    "email": "node src/mail/mail.js",
+    "start": "npm run wdio && npm run matchJobs && npm run email"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "@huggingface/inference": "^2.8.1",
     "@langchain/community": "^0.3.23",
     "@langchain/core": "^0.3.27",

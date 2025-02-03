@@ -20,6 +20,10 @@ class LoginPage extends Page {
         return $('button[type="submit"]');
     }
 
+    get profilePhoto() {
+        return $('.profile-card-profile-picture');
+    }
+
     /**
      * a method to encapsule automation code to interact with the page
      * e.g. to login using username and password
@@ -28,6 +32,7 @@ class LoginPage extends Page {
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
         await this.btnSubmit.click();
+        // await browser.waitUntil(async () => await this.profilePhoto.isDisplayed());
     }
 
     /**
