@@ -9,7 +9,7 @@
   },
   "scripts": {
     "wdio": "wdio run ./wdio.conf.js",
-    "matchJobs": "node src/ai/jobMatcher.js",
+    "matchJobs": "node src/ai/jobMatcherHuggingface.js",
     "email": "node src/mail/mail.js",
     "start": "npm run wdio && npm run matchJobs && npm run email"
   },

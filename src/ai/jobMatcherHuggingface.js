@@ -14,7 +14,6 @@ const readStream = (stream) => {
       if (chunk.choices && chunk.choices.length > 0) {
         const newContent = chunk.choices[0].delta.content;
         out += newContent;
-        console.log(newContent)
       }  
     }
     resolve(out);
@@ -25,7 +24,7 @@ const proms = jobs.map(async (job) => {
   const jobDetail = fs.readFileSync(`data/jobs/${job}`).toString();
   const {url} = JSON.parse(jobDetail);
   const stream = client.chatCompletionStream({
-    model: "HuggingFaceH4/zephyr-7b-alpha",
+    model: "Qwen/Qwen2.5-72B-Instruct",
     messages: [
       {role: "system", content: "Based on the resume given in markdown, check if the below job description given in html matches to the resume. Generate the json without any other formatting such as code block."},
       { role: "user", content: `
